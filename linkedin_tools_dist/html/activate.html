@@ -1,0 +1,144 @@
+<style type="">
+	@import url(https://fonts.googleapis.com/css?family=Lato);
+
+	* { font-family: 'Lato', sans-serif !important; }
+
+	body {
+		padding: 0;
+		margin: 0;
+	}
+
+	.navbar-inner {
+		color: gray;
+		border-radius: 0; 
+		vertical-align: middle;
+		letter-spacing: 1px;
+	}
+	body > .footer { 
+		/*border: solid 1px black;*/
+		padding: 5px 10px;
+		font-size: 15px;
+		text-align: center;
+		background-color: silver;
+		color: white;
+		margin: 10px 5px;
+	}
+	.content > * {
+		width: 350px;
+		padding: 5px 10px;
+	}
+	input[type="text"] {
+		padding: 15px 10px;
+	}
+	.clr { clear: both; float: none; }
+
+	.msg-info {
+		background-color: #D5FAFF;
+	}
+
+	.msg-success {
+		background-color: #6CFF6C;
+	}
+
+	.msg-error {
+		background-color: #f77;
+	}
+	.overlay {
+		position: absolute;
+		font-size: 20px;
+		background: rgba(0,0,0,0.8);
+		top: 0; left: 0; bottom: 0; right: 0;
+		padding: 20% 0;
+		color: white;
+		text-align: center;
+	}
+	*  {box-sizing: border-box;}
+	[class*="span"] {
+		/*margin-right: 5px;*/
+	}
+	.input-info {
+		font-style: italic;
+		font-size: 80%;
+	}
+	.center {
+		text-align: center;
+		padding: 20% 0;
+	}
+	section {
+		width: 500px;
+		min-height: 300px;
+		border: solid 3px #ddd;
+		border-radius: 10px;
+		margin: 20px auto;
+		display: none;
+	}
+
+	input[type="text"], textarea, select {
+		width: 100%;
+	}
+	nav {
+		width: 500px;
+		margin: 10px auto;
+	}
+
+	sup {
+		font-size: 	100%;
+	}
+
+	input[type="number"] {
+		height: auto !important;
+		width: 100%;
+	}
+	.row, *[class^="span"]:first { margin-left: 0!important;}
+	.half-width { width: 45%!important; }
+	.flex-grid > * {
+		margin: 0 3px;
+	}
+	.flex-grid {
+		display: flex; justify-content: space-between;
+	}
+	.list {
+		border: solid 1px silver;
+		padding: 5px 3px;
+		margin: 5px 0;
+	}
+	
+
+	.footer-bottom {
+
+		bottom: 0;
+		left: 0;
+		right: 0;
+		position: fixed;
+	}
+
+	.note { font-size: 90%;  color: gray; margin-bottom: 3px;}
+</style>
+
+	<header id="header" class="navbar">
+		<div class="navbar-inner">
+			<a class="brand">  GPZ LinkedIN Tools </a>
+		</div>
+	</header><!-- /header -->
+
+<div style="margin: 10px 20px" id="content_area">
+
+
+	<div style="margin: 10px 20px" id="activation" class="hide">
+		<div id="" class="modal">
+		  <div class="modal-header">
+		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		    <h3 class="modal-title">Activation</h3>
+		  </div>
+		  <div class="modal-body">
+		    <input type="text" id="email" placeholder="Enter your email ID">
+		    <input type="text" id="license_key" placeholder="Product/License/Activation key">
+		    <div class="alert"> Enter the activation code you have recieved </div>
+		  </div>
+		  <div class="modal-footer">
+		    <a class="btn" aria-hidden="true" href="http://socialsidekick.io/lost-code">Lost activation code?</a>
+		    <button class="btn btn-primary" id="activate">Activate</button>
+		  </div>
+		</div>
+	</div>
+</div>

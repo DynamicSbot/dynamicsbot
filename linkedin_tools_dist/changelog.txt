@@ -1,0 +1,7 @@
+ChangeLog:
+v2.010
+* Added support for connection requests upto 300 (75 custom invites + remaining default invites)
+
+v2.003
+* Linkedin Account Change detector added to Prevent Corruption of campaign data.
+* Some performance enhancement and fixes

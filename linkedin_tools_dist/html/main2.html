@@ -1,0 +1,369 @@
+<script type="text/javascript" src="/js/lib/jquery.tmpl.js">	</script>
+<script type="text/javascript" src="/js/lib/knockout-3.3.0.js">	</script>
+	<style type="">
+		.note { font-size: 90%;  color: gray; margin-bottom: 3px;}
+		table thead th {
+			background-color: #efefef;
+			/*box-shadow: 5px 5px 0px 0px #aaa;*/
+		}
+
+		table tbody tr:hover td:first-child {
+			border-left: solid 3px green;
+		}
+		table tbody td {
+			cursor: pointer;
+			background-color: #fefefe;
+			padding: 2px 10px;
+		}
+
+		table tfoot td { padding: 5px 10px; }
+		table th, table td { border: solid 1px #ddd; }
+		table {
+			border-collapse: collapse;
+			border: solid 1px silver;
+			width: 100%;
+			/*box-shadow: 0px 0px 3px 1px gray;*/
+		}
+
+		section {
+			padding: 20px;
+			width: 500px;
+			margin: auto;
+		}
+		section .btn {
+			margin: 10px 0;
+		}
+		@font-face {
+			font-family: 'opensans';
+			src: url( '/fonts/opensans.ttf' );
+		}
+
+		* { font-family: 'opensans' !important; }
+
+		body {
+			padding: 0;
+			margin: 0;
+		}
+
+		.navbar-inner {
+			color: gray;
+			border-radius: 0;
+			vertical-align: middle;
+			letter-spacing: 1px;
+		}
+		body > .footer {
+			/*border: solid 1px black;*/
+			padding: 5px 10px;
+			font-size: 15px;
+			text-align: center;
+			background-color: silver;
+			color: white;
+			margin: 10px 5px;
+		}
+		.content > * {
+			width: 350px;
+			padding: 5px 10px;
+		}
+		input[type="text"] {
+			padding: 15px 10px;
+		}
+		.clr { clear: both; float: none; }
+
+		.msg-info {
+			background-color: #D5FAFF;
+		}
+
+		.msg-success {
+			background-color: #6CFF6C;
+		}
+
+		.msg-error {
+			background-color: #f77;
+		}
+		.overlay {
+			position: absolute;
+			font-size: 20px;
+			background: rgba(0,0,0,0.8);
+			top: 0; left: 0; bottom: 0; right: 0;
+			padding: 20% 0;
+			color: white;
+			text-align: center;
+		}
+		*  {box-sizing: border-box;}
+		[class*="span"] {
+			/*margin-right: 5px;*/
+		}
+		.input-info {
+			font-style: italic;
+			font-size: 80%;
+		}
+		.center {
+			text-align: center;
+			padding: 20% 0;
+		}
+		section {
+			width: 500px;
+			min-height: 300px;
+			border: solid 3px #ddd;
+			border-radius: 10px;
+			margin: 20px auto;
+			display: none;
+		}
+		.tasks_table tbody > tr > td {
+			text-align: center;
+		}
+		.tasks_table tbody > tr > td:first-child {
+			text-align: left;
+		}
+		input[type="text"], textarea, select {
+			width: 100%;
+		}
+		nav {
+			width: 500px;
+			margin: 10px auto;
+		}
+
+		sup {
+			font-size: 	100%;
+		}
+
+		input[type="number"] {
+			height: auto !important;
+			width: 100%;
+		}
+		.thread_action,.thread_action:hover { cursor: pointer; text-decoration: none; font-size: 90%; margin: 0 1px }
+		.inline-block { display:  inline-block; }
+		.center-weighted > * { vertical-align: middle; display: inline-block; text-align: center; }
+		.row, *[class^="span"]:first { margin-left: 0!important;}
+		.half-width { width: 45%!important; }
+		.flex-grid > * {
+			margin: 0 3px;
+		}
+		.flex-grid {
+			display: flex; justify-content: space-between;
+		}
+		.list {
+			border: solid 1px silver;
+			padding: 5px 3px;
+			margin: 5px 0;
+		}
+		optgroup {
+			text-align: center;
+
+		}
+		.list-actions .btn {
+			margin: 5px 3px;
+		}
+
+		.listForm {
+			width: 40%;
+		}
+
+		#js_message {
+			font-weight: bold;
+			font-size: 150%;
+
+		}
+
+		td .alert { font-size: 80%; padding: 2px; margin: 2px 0; border: none; }
+
+	</style>
+
+	<header id="header" class="navbar">
+		<div class="navbar-inner">
+			<a class="brand">  GPZ LinkedIN Tools </a>
+			<ul class="nav pull-right">
+				<li><a href="#livechat" data-toggle="modal" id="showchat_btn">  Messages <div id="chat_notification" style="display: inline-block; background-color:red; color: white; border-radius: 20px; padding: 0 6px; "> </div> </a> </li>
+				<li><a href="#settings" data-toggle="modal"> Settings </a> </li>
+			</ul>
+		</div>
+	</header><!-- /header -->
+
+	<div style="margin: 10px 20px" id="content_area">
+		<div style=" margin-bottom: 20px;">
+			<h4 style="display: inline-block" class="">Campaigns</h4>
+			<a style="clear: both; width: 150px;" class="btn btn-success pull-right" id="new_task" data-toggle="modal" href="#add_task_w"> <strong> +</strong> Add Campaign </a>
+		</div>
+		<ul class="nav nav-tabs" id="">
+			<li class="active"><a href="#active" data-toggle="tab">Active</a></li>
+			<li><a href="#completed" data-toggle="tab">Inactive</a></li>
+		</ul>
+		<div class="tab-content flex" style="max-height: 75%;">
+			<div class="tab-pane active" id="active">
+				<table id="tasks_table_a" class="tasks_table">
+					<thead>
+						<tr>
+							<th width="40%"> Campaign name </th>
+							<th width="10%"> Status </th>
+							<th width="30%"> Progress </th>
+							<th width="20%"> Actions </th>
+						</tr>
+					</thead>
+
+					<tbody>
+						
+					</tbody>
+				</table>
+			</div>
+			<div class="tab-pane" id="completed">
+				<table id="tasks_table_c" class="tasks_table">
+						<thead>
+							<tr>
+								<th width="40%"> Campaign name </th>
+								<th width="10%"> Status </th>
+								<th width="30%"> Progress </th>
+								<th width="20%"> Actions </th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+
+							</tr>
+						</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- Modal -->
+		<div id="settings" class="modal hide fade" roleSubject="dialog">
+		  <div class="modal-header">
+		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		    <h3 class="modal-title">Settings</h3>
+		  </div>
+		  <div class="modal-body">
+		  	<label> <input type="checkbox" data-bind="checked: options.auto_run_tasks"> Auto resume unexpectedly stopped campaigns on next startup </label>
+		  	<label> <input type="checkbox" data-bind="checked: options.show_notifications"> Show desktop notifications regarding campaign status changes </label>
+			<label data-bind="if: current_account"> This install is locked to following Linkedin account: <strong data-bind="text: current_account"> </strong> </label>
+		  	<label><strong>Import/Export</strong></label>
+		  	<a class="btn " id="export">Export</a>
+		  	<a class="btn " id="import">Import</a>
+		  	<label> Background Image: </label>
+		  	<a class="btn btn-info" id="chooseFile"> Choose File </a> <input type="file" id="bgImg" class="hide">
+
+		  </div>
+		  <div class="modal-footer">
+		    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		  </div>
+		</div>
+
+		<div id="update_notice" class="modal hide fade" roleSubject="dialog">
+		  <div class="modal-header">
+		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		    <h3 class="modal-title">Update Notice</h3>
+		  </div>
+		  <div class="modal-body">
+		  	The system has been updated to <span class="version"></span>
+		  	<div id="changelog"> </div>
+		  </div>
+		  <div class="modal-footer">
+		    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		 <!--    <button data-dismiss="modal" class="btn btn-primary" id="ss">Save changes</button> -->
+		  </div>
+		</div>
+
+		<div id="add_task_w" class="modal hide fade" style="margin: 0; padding: 0; top: 10%; left:30%;zoom: 0.9 ">
+			<div class="modal-header" style="padding: 0 10px">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="margin: 2px">×</button>
+				<h4 class="modal-title">Campaign Builder</h4>
+			</div>
+			<div class="modal-body" style="max-height: 500px;">
+				<form style="padding: 5px; overflow: auto; margin-bottom: 100px">
+					<div >
+						<select id="tasks_list">
+							<option value="0">Select a task</option>
+							<!-- Tasks list will be fetched and appended here from tasks.json file -->
+						</select>
+						<input id="thread_name" type="text" placeholder="Thread name" required>
+					</div>
+					<hr>
+					<div id="task_parameters">
+					<!--
+					The html code for the task parameters form will be fetched from parameters.html file from corresponding task's directory
+					-->
+					</div>
+
+				</form>
+			</div>
+			<div class="modal-footer" style="bottom: 0; position: absolute; right: 0; left: 0;">
+				<input type="hidden" id="thread_id"/>
+				<span id="js_message"></span>
+				<button class="btn btn-primary" id="update_task">Save Campaign</button>
+			</div>
+		</div>
+
+		<div id="manage_task_w" class="modal hide fade" style="top: 15px; left: 15px; bottom: 15px; right: 15px; margin: 0; padding: 0; width: auto; height: auto; zoom: 0.8; max-height: none; ">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title">Campaign Manager</h4>
+			</div>
+			<div class="modal-body flex" style="max-height: 90%">
+				<ul class="nav nav-tabs" id="myTab">
+					<li class="active"> <a href="#management" data-toggle="tab">Result</a ></li>
+					<li class=""> <a href="#thread_info" data-toggle="tab"> Info </a></li>
+				</ul>
+
+				<div class="tab-content flex" style="max-height: 75%;">
+					<div class="tab-pane active" id="management">
+						<div id="task_management"> </div>
+					</div>
+					<div class="tab-pane" id="thread_info">
+
+					</div>
+
+				<!-- 	<div class="tab-pane" id="task_logs">
+
+					</div> -->
+				</div>
+
+			</div>
+			<div class="modal-footer" style="bottom: 0; position: absolute; right: 0; left: 0;">
+				
+			</div>
+		</div>
+	</div>
+
+
+	<div style="margin: 10px 20px; height: 90%;" id="livechat" class="hide">
+		<div id="logs" class="modal">
+		  <div class="modal-header">
+		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		    <h3 class="modal-title"> Live Chat </h3>
+		  </div>
+		  <div class="modal-body">
+			  <style>
+				#chatlist {
+				  	border: solid 1px #D7D7D7;
+				    padding: 5px 15px;
+				    zoom: .9;
+				    margin: 10px 0;
+				    max-height: 260px;
+				    overflow: auto;
+				    box-shadow: inset -6px 6px 35px -18px #000;
+				}
+			  	#chatlist .chat-message { border-bottom: solid 1px #ddd; margin-bottom: 3px; }
+			  	#chatlist .chat-message p {  margin: 3px 0;}
+			  	.text-right { float: right; font-size: 90%; }
+			  	#screenshot {
+			  		margin: 5px; border: solid 1px silver;
+			  	}
+			  </style>
+		  	<p> You can chat with other users of this app here. </p>
+		  	<div id="chatlist">
+		  	</div>
+		  	<div id="send_chat_area">
+			    <textarea id="chat_message" placeholder="Enter your message here."></textarea>
+			 <!--    <div id="screenshot">
+			    	<img src="" width="100%">
+			    </div> -->
+			    <a class="btn" id="send_chat"> Send </a>
+			    <!-- <a href="#" id="attach_image">Attach last captured screenshot</a> -->
+			</div>
+			<div id="get_started_area">
+				<p> To start sending messages, Enter your <strong>name</strong> below: </p>
+
+				<input type="text" id="myname" placeholder="Username" maxlength="10" pattern="^[a-zA-Z0-9\_]+$" required>
+			</div>
+		  </div>
+		</div>
+	</div>
